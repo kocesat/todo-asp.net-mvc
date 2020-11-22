@@ -1,0 +1,39 @@
+﻿@model TodoAspNetMvc.Models.TodoItem
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>@ViewBag.Title</h3>
+
+@using (Html.BeginForm("Save", "TodoItems"))
+{
+    @Html.ValidationSummary(true, "Please fix the following errors")
+
+    <div class="form-group">
+        @Html.LabelFor(i => i.ShortDescription)
+        @Html.TextBoxFor(i => i.ShortDescription, new { @class = "form-control" })
+        @Html.ValidationMessageFor(i => i.ShortDescription)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(i => i.Deadline)
+        @Html.TextBoxFor(i => i.Deadline, "{0: d MMM yyyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(i => i.Deadline)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(i => i.Description)
+        @Html.TextAreaFor(i => i.Description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(i => i.Description)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.IsComplete)
+        <div>
+            Complete
+            @Html.RadioButtonFor(model => model.IsComplete, "True")
+            Incomplete
+            @Html.RadioButtonFor(model => model.IsComplete, "False")
+        </div>
+    </div>
+    @Html.HiddenFor(model => model.Id)
+    <button type="submit" class="btn btn-primary">Save</button>
+}
